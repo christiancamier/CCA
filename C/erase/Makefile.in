@@ -1,0 +1,90 @@
+#
+# Copyright (c) 2010
+#      Christian CAMIER <chcamier@free.fr>
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+#
+
+#
+# #@ "Makefile"
+#	-- CC Utilities: Compilation rules
+#
+# Author : Christian CAMIER (chcamier@free.fr)
+#
+# Rev : 1.0 (01/21/2008)
+#
+
+TOP   ?= @ccr_top_dir@
+
+LCSRCS = buffer.c		\
+	 callbacks.c		\
+	 debug.c		\
+	 definitions.c		\
+	 driver.c		\
+	 driver_disk.c		\
+	 driver_file.c		\
+	 driver_tape.c		\
+	 error.c		\
+	 fileop.c		\
+	 info.c			\
+	 initialize.c		\
+	 memory.c		\
+	 methods.c		\
+	 passes.c		\
+	 random.c		\
+	 remove.c		\
+	 warning.c
+
+PSRCS =	erase.c	
+
+CSRCS  = $(LCSRCS) $(PCSRCS)
+ISRCS  = $(CSRCS:.c=.i)
+LCOBJS = $(LCSRCS:.c=.o)
+SCOBJS = $(LCSRCS:.c=.po)
+PCOBJS = $(PSRCS:.c=.o)
+COBJS = $(LCOBJS) $(PCOBJS)
+
+EXECS =	$(PSRCS:.c=)
+MAN1S = $(EXECS:=.1)
+BINS  = $(EXECS)
+LIBS  = liberase.a
+
+include $(TOP)/src/Makefile.inc
+
+all: $(EXECS) $(LIBS)
+
+install: install.bin install.man1
+
+clean:
+	rm -fr $(LIBS)
+	rm -fr $(EXECS)
+	rm -fr $(COBJS)
+	rm -fr $(SOBJS)
+	rm -fr $(ISRCS)
+	rm -fr *~ \#*
+
+distclean: clean
+	rm -fr Makefile
+	rm -fr machdep.h
+
+erase: erase.o $(LCOBJS)
+	$(CC) -o erase erase.o $(LCOBJS) $(LDOPTS)
+
+#liberase.so: $(SCOBJS)
+
+liberase.a: $(LCOBJS)
+	rm -f $@
+	ar q $@ $(LCOBJS)
+	ranlib $@
+
+include Makefile.depend

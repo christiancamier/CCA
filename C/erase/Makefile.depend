@@ -1,0 +1,19 @@
+fileop.o:	fileop.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+driver.o:	driver.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+driver_disk.o:	driver_disk.c	../common/cc_dsk.h ../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+driver_file.o:	driver_file.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+initialize.o:	initialize.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+warning.o:	warning.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+memory.o:	memory.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+error.o:	error.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+callbacks.o:	callbacks.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+remove.o:	remove.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+passes.o:	passes.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+debug.o:	debug.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+info.o:	info.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+definitions.o:	definitions.c	../common/cc_fmt.h ../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+buffer.o:	buffer.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+erase.o:	erase.c	../common/cc_confirm.h ../common/cc_fmt.h ../common/cc_machdep.h ../common/cc_memory.h ../common/cc_options.h ../common/cc_paranoia.h ../common/cc_path.h ../common/cc_util.h erase.h erase_internal.h
+methods.o:	methods.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+random.o:	random.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h
+driver_tape.o:	driver_tape.c	../common/cc_machdep.h ../common/cc_memory.h ../common/cc_util.h erase.h erase_internal.h

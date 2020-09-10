@@ -25,7 +25,6 @@ extern void   cc_log_crit           (const char *, ...);
 extern void   cc_log_debug          (const char *, ...);
 extern void   cc_log_emerg          (const char *, ...);
 extern void   cc_log_err            (const char *, ...);
-extern size_t cc_log_format_message (char *, size_t, int, const char *, va_list);
 extern void   cc_log_info           (const char *, ...);
 extern void   cc_log_notice         (const char *, ...);
 extern void   cc_log_perror         (const char *);
@@ -34,14 +33,15 @@ extern void   cc_log_start          (void);
 extern void   cc_log_warning        (const char *, ...);
 
 #ifdef _STDARG_H
-extern void cc_log_valert       (const char *, va_list);
-extern void cc_log_vcrit        (const char *, va_list);
-extern void cc_log_vdebug       (const char *, va_list);
-extern void cc_log_vemerg       (const char *, va_list);
-extern void cc_log_verr         (const char *, va_list);
-extern void cc_log_vinfo        (const char *, va_list);
-extern void cc_log_vnotice      (const char *, va_list);
-extern void cc_log_vwarning     (const char *, va_list);
+extern size_t cc_log_format_message (char *, size_t, int, const char *, va_list);
+extern void   cc_log_valert         (const char *, va_list);
+extern void   cc_log_vcrit          (const char *, va_list);
+extern void   cc_log_vdebug         (const char *, va_list);
+extern void   cc_log_vemerg         (const char *, va_list);
+extern void   cc_log_verr           (const char *, va_list);
+extern void   cc_log_vinfo          (const char *, va_list);
+extern void   cc_log_vnotice        (const char *, va_list);
+extern void   cc_log_vwarning       (const char *, va_list);
 #endif
 
 #endif  /* !__CC__LOG_H__ */

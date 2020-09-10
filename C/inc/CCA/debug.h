@@ -31,9 +31,9 @@ extern int    cc_dbg_get_flag(void);
 extern void   cc_dbg_memdump(const char *, void *, size_t);
 extern void   cc_dbg_printf(const char *, ...);
 extern int    cc_dbg_set_flag(int);
-extern void (*cc_dbg_set_display(void (*)(const char *, va_list)))(const char *, va_list);
 
 #ifdef _STDARG_H
+extern void (*cc_dbg_set_display(void (*)(const char *, va_list)))(const char *, va_list);
 extern void   cc_dbg_vprintf(const char *, va_list);
 #endif
 #endif /*! __CC_DEBUG_H__*/

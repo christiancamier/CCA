@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Copyright (c) 2020
+      Christian CAMIER <christian.c@promethee.services>
+ 
+ Permission to use, copy, modify, and distribute this software for any
+ purpose with or without fee is hereby granted, provided that the above
+ copyright notice and this permission notice appear in all copies.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+-->
+
+<package name = "EKPYRO" version = "1.0">
+  <author name  = "Christian CAMIER"
+	  email = "christian.c@promethee.services" />
+  <site url = "https://promethee-services.fr" />
+  <description short = "defines some linux system interfaces">
+    This module defines linux system interfaces which are not taken
+    care by the "os" module
+  </description>
+  <module name = "sys_linux" language = "c">
+    <compilation>
+      <!-- 
+      <include>
+	<directory path = "path" />
+      </include>
+      -->
+      <libraries>
+	<!-- <directory path = "path" /> -->
+	<library   name = "rt"/>
+      </libraries>
+      <macros>
+	<define name = "USE_CONSTRUCTOR" />
+	<!-- <define name = "DEBUG" /> -->
+	<!-- <define name = "nnnn" value = "nnnnn" /> -->
+	<!-- <undefine name = "nnnn" /> -->
+      </macros>
+      <compile>
+	<argument arg = "-Wall" />
+	<argument arg = "-Werror" />
+	<argument arg = "-Wno-variadic-macros" />
+	<argument arg = "-Wstrict-prototypes" />
+	<argument arg = "-Wunused" />
+	<argument arg = "-Wunused-function" />
+      </compile>
+      <!--
+      <link>
+        <argument arg = "-arg" />
+      </link>
+      -->
+    </compilation>
+    <sources>
+      <file name = "mod_sys_linux*.c" />
+    </sources>
+  </module>
+</package>

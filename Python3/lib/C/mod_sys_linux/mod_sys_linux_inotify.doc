@@ -1,0 +1,102 @@
+# 
+# Copyright (c) 2020
+#      Christian CAMIER <christian.c@promethee.services>
+# 
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+#
+
+!DOC class_inotify
+Class Inotify -- File system events monitoring object
+
+Constructor:
+ Inotify([flags]) -> Inotify object
+
+ Arguments:
+ * flags:  Inotify object behaviour flags
+           An iterable (set, list, tuple) of one or more of the folowing values:
+	   - IN_NONBLOCK : Set  the  O_NONBLOCK file status flag on the new open file description.
+	                   Using this flag saves extra calls to fcntl(2) to achieve the same result.
+           - IN_CLOEXEC  : Set the close-on-exec (FD_CLOEXEC) flag on the new file descriptor.
+	                   See  the  description  of the O_CLOEXEC flag in open(2) for reasons why
+			   this may be useful.
+
+
+Attributes:
+* filefd: integer, read only
+          System file descriptor asspciated to the SignalFD object.
+!END
+
+!DOC addwatch
+addWatch -- Add a watch to an Inotify object.
+
+Usage :
+  addWatch(path, events) -> Integer
+
+Arguments :
+  path   : String
+  	   File location attached to the watch.
+  events : Iterable (set, list, tuple)
+  	   Possible events are described in inotify(7) manual page.
+
+Returns
+  The watch identifier.
+!END
+
+!DOC close
+close -- close the Inotify object.
+
+Usage:
+  close()
+
+Returns:
+  None
+
+Note:
+  The Inotify object will be used.
+!END
+
+!DOC delwatch
+delWatch -- Remove a watch from an Inotify object.
+
+Usage :
+  delWatch(watchid) -> Integer
+
+Arguments :
+  watchid : Integer
+  	    Watch identifier to be removed.
+
+Returns
+  None
+!END
+
+!DOC fileno
+fileno() -> integer
+
+Returns the file descriptor associated to the Inotify object
+!END
+
+!DOC next
+next() -> InotifyEvent object
+
+Returns the next InotifyEvent Object. If no event is available and the IN_NONBLOCK is set, returns None.
+!END
+
+!DOC class_inotifyevent
+InotifyEvent object
+
+Constructor:
+  None.
+
+*****************
+*****************
+!END

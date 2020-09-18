@@ -1,0 +1,130 @@
+# 
+# Copyright (c) 2020
+#      Christian CAMIER <christian.c@promethee.services>
+# 
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+#
+
+!DOC pathconf
+Function pathconf:
+ pathconf(path, name) --> integer
+ Gets a value for configuration option name for the filename path.
+
+Arguments:
+ * path: a string indicating an existing file or directory.
+ * name: an integer indicating the desired value as follow:
+	 - PC_CHOWN_RESTRICTED:
+	   Returns nonzero if the chown(2) call may not be used on this file where path refer to a directory.
+	 - PC_MAX_CANON:
+	   Returns the maximum length of a formatted input line where path refer to a terminal,
+	 - PC_MAX_INPUT:
+	   Returns the maximum length of an input line where path refer to a terminal,
+	 - PC_NAME_MAX:
+	   Returns the maximum length of a filename in the directory path.
+	 - PC_NO_TRUNC:
+	   Returns nonzero if accessing filenames longer than _POSIX_NAME_MAX generates an error.
+	 - PC_PATH_MAX:
+	   Returns the maximum length of a relative pathname when path is the current working directory.
+	 - PC_PIPE_BUF:
+	   Returns the size of the pipe buffer, path must refer to a FIFO.
+	 - PC_VDISABLE:
+	   Returns nonzero if special character processing can be disabled, where path must refer to a terminal.
+         - PC_LINK_MAX:
+	   returns the maximum number of links to the file where path refer to a directory,
+
+Return value:
+ The limit is returned, if one exists.  If the system does not have a limit for the requested resource, -1?
+  If name is invalid an SystemError exception is raised.
+!END
+
+!DOC sysconf
+Function sysconf:
+  sysconf(name) --> integer
+  Allows an application to test at run time whether certain options are supported, or what
+  the value is of certain configurable constants or limits.
+
+Arguments:
+ * name: an integer indicating the desired value as follow:
+         - SC_ARG_MAX:
+	   The  maximum  length  of  the  arguments to the exec(3) family of functions.
+	 - SC_CHILD_MAX:
+	   The maximum number of simultaneous processes per user ID.
+	 - SC_HOST_NAME_MAX
+	   Maximum  length  of  a  hostname,  not including the terminating null byte, as returned by
+	   gethostname(2).
+	 - SC_LOGIN_NAME_MAX:
+	   Maximum length of a login name, including the  terminating  null  byte.
+	 - SC_NGROUPS_MAX:
+	   Maximum number of supplementary group IDs.
+	 - SC_CLK_TCK:
+	   The  number  of  clock ticks per second.
+	 - SC_OPEN_MAX:
+	   The maximum number of files that a process can have open at  any  time.
+	 - SC_PAGESIZE:
+	   Size of a page in bytes.
+	 - SC_RE_DUP_MAX:
+	   The  number  of  repeated occurrences of a BRE permitted by regexec(3) and regcomp(3).
+	 - SC_STREAM_MAX:
+	   The maximum number of streams that a process can have open at any time.
+	 - SC_SYMLOOP_MAX:
+	   The  maximum number of symbolic links seen in a pathname before resolution returns ELOOP.
+	 - SC_TTY_NAME_MAX;
+	   The maximum length of terminal device name, including the terminating null byte.
+	 - SC_TZNAME_MAX:
+	   The maximum number of bytes in a timezone name.
+	 - SC_VERSION:
+	   Indicates  the  year  and  month the POSIX.1 standard was approved in the format YYYYMML; the value
+	   199009L indicates the Sept. 1990 revision.
+	 - SC_BC_BASE_MAX:
+	   Indicates the maximum obase value accepted by the bc(1) utility.
+       	 - SC_BC_DIM_MAX:
+	   Indicates the maximum value of elements permitted in an array by bc(1).
+	 - SC_BC_SCALE_MAX:
+	   Indicates the maximum scale value allowed by bc(1).
+	 - SC_BC_STRING_MAX:
+	   Indicates the maximum length of a string accepted by bc(1).
+	 - SC_COLL_WEIGHTS_MAX:
+	   Indicates the maximum numbers of weights that can be assigned to an entry of the  LC_COLLATE  order
+           keyword in the locale definition file,
+	 - SC_EXPR_NEST_MAX:
+	   Is the maximum number of expressions which can be nested within parentheses by expr(1).
+	 - SC_LINE_MAX:
+           The  maximum  length  of  a  utility's input line, either from standard input or from a file.  This
+           includes space for a trailing newline.
+	 - C_2_VERSION:
+	   Indicates the version of the POSIX.2 standard in the format of YYYYMML.
+	 - SC_2_C_DEV:
+	   Indicates whether the POSIX.2 C language development facilities are supported.
+	 - SC_2_FORT_DEV:
+	   Indicates whether the POSIX.2 FORTRAN development utilities are supported.
+	 - SC_2_FORT_RUN:
+	   Indicates whether the POSIX.2 FORTRAN run-time utilities are supported.
+	 - SC_2_LOCALEDEF:
+	   Indicates whether the POSIX.2 creation of locates via localedef(1) is supported.
+	 - SC_2_SW_DEV:
+	   Indicates whether the POSIX.2 software development utilities option is supported.
+	 - SC_PHYS_PAGES:
+	   The number of pages of physical memory.  Note that it is possible for the product of this value and
+           the value of SC_PAGESIZE to overflow.
+	 - SC_AVPHYS_PAGES:
+	   The number of currently available pages of physical memory.
+	 - SC_NPROCESSORS_CONF:
+	   The number of processors configured.
+	 - SC_NPROCESSORS_ONLN:
+	   The number of processors currently online (available).
+
+Return value:
+  The value returned is the value of the system resource
+  Ig there is no definite limit, -1 is returned.
+  If name is invalid an SystemError exception is raised.
+!END

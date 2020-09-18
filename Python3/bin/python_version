@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+
+import sys
+
+sys.stdout.write("{0:d}{1:d}".format(sys.version_info.major, sys.version_info.minor))

@@ -1,0 +1,114 @@
+# 
+# Copyright (c) 2020
+#      Christian CAMIER <christian.c@promethee.services>
+# 
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+#
+
+!DOC class_signalfd
+Class SignalFD -- Signal file descriptor
+
+Constructor:
+ SignalFD(sigset, flags) -> SignalFD object
+
+ Arguments:
+ * sigset: iterable
+           The set of signals whese delevery is currently for the callers
+	   (see sigprocmask for more informations).
+ * flags:  integer
+           The SIgnalFD object behaviour. The following values can be bitwise ORed in flags:
+           - SFD_NONBLOCK: Set  the O_NONBLOCK file status flag on the new open file description.
+           - SFD_CLOEXEC:  Set the close-on-exec (FD_CLOEXEC) flag on the new file descriptor.
+
+ Considerations:
+  The signals represented in "sigset" must be blocked first (see sigprocmask for
+  more informations).
+
+Exceptions:
+ SystemError. errno values are:
+ * errno.EBADFD: The SignalFD object has been closed.
+ * errno.EMFILE: The per-process limit on the number of open file descriptors has been reached.
+ * errno.ENFILE; The system-wide limit on the total number of open files has been reached.
+
+Attributes:
+* filefd: integer, read only
+          System file descriptor asspciated to the SignalFD object.
+* sigset: frozenset, read only
+          expected signals set
+!END
+
+!DOC close
+close() -> None
+
+Close the SignalFD object.
+!END
+
+!DOC fileno
+fileno() -> integer
+
+Returns the file descriptor associated to the SignalFD object
+!END
+
+!DOC nsignal
+next_signal() -> SignalInfo object
+
+Return the next signal in queue.
+If there are no pending signal and SFD_NONBLOCK is set in flagds, None is returned
+!END
+
+!DOC ssigset
+set_sigset(sigset) -> frozenset
+
+Change the expected signal set.
+Return the old expected signal set.
+!END
+!DOC class_signalinfo
+Class SigInfo -- Signal information structure
+!END
+!DOC sigpending
+Funcion sigpending:
+ sigpending() -> frozenset
+
+Return value:
+ Returns a frozenset representing the pending signals.
+!END
+
+!DOC sigprocmask
+Function sigprocmask:
+ sigprocmask(how, newset) -> frozenset
+Arguments:
+ * how:    an integer value defining the behaviour as follow:
+           - SIG_BLOCK:   The set of blocked signals is the union
+	                  of the current set and the set argument.
+	   - SIG_UNBLOCK: The signals in set are removed from the
+	                  current set of blocked signals.  It is
+			  permissible to attempt to unblock a signal
+			  which is not blocked.
+	   - SIG_SETMASK: The set of blocked signals is set to the
+	                  argument set.
+ * newset: an iterable representing the set of signals that will
+           be (un)blocked.
+Return value:
+ Returns a frozenset representing the previous value set of blocked
+ signals.
+!END
+
+!DOC sigsuspend
+Function sigsuspend:
+ sigsuspend(sigset) -> None
+Arguments;
+ * sigset: an iterable representing the set of signals that will
+           be suspended.
+Return value:
+ None
+!END

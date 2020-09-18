@@ -1,0 +1,141 @@
+# 
+# Copyright (c) 2020
+#      Christian CAMIER <christian.c@promethee.services>
+# 
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+#
+
+!DOC class_MQ
+Class MessageQueue -- Posix message queues
+
+Constructor:
+ MessageQueue(name, oflags, mode = None, maxmsg = None, msgsize = None) -> MessageQueue object
+
+ Arguments;
+ * name:    str
+            Name of the message queue.
+ * oflags:  Integer
+            MessageQueue object behaviour.
+	    Exactly one of the following must be specified in oflag:
+	    - os.O_RDONLY:  Open queue to receive messages only.
+	    - os.O_WRONLY:  Open queue to send messages only.
+	    - os.RDWR:      Open queue to noth send ancd receive messages.
+	    Zero or more of the following flags can additionally be ORed in oflag:
+	    - os.O_CLOEXEC: Set  the  close-on-exec flag for the message queue descriptor.
+	    - os.O_CREATE:  Create the message queue if it does not exist.
+	      		    The owner (user ID) of the message queue is set  to the  effective
+			    user ID of the calling process.
+			    The group ownership (group ID) is set to the effective group ID
+			    of the calling process.
+	    - os.O_EXCL:    If O_CREAT was specified in oflag, and a queue with the given name
+	      		    already exists, then raise a SystemError exception with the error
+			    error.EEXIST
+	    - os.O_NONBLOCK:Open the queue in nonblocking mode.
+	    		    In circumstances where the methods receive and send would normaly
+			    block, these functions instead return None.
+ If os.O_CREATE is specified in oflags, then three must be supplied:
+ * mode:    Integer
+            The permissions to be placed on the new queue.
+ * maxmsg:  Integer
+            The maximum number of messages in the queue.
+            If maxmsg is None, the default system value (/proc/sys/fs/mqueue/msg_default) will be used.
+ * msgsize: Integer
+            The maximum message size in the queue.
+            If msgsize is None, the default system value (/proc/sys/fs/mqueue/msgsize_default) will be used.
+
+Attrinutes:
+ * is_blocking: boolean, RW
+  	        If True,  receive and send would block.
+		If False, receive and send would not block.
+ * maxmsg:      integer, RO
+   		Max number of messages on queue.
+ * msgsize:	integer, RO
+  		Max message size (in bytes)
+ * curmsg:	integer, RO
+   		Number of message currenty in queuq.
+!END
+
+!DOC close
+close() -> None
+
+Close the message queue.
+!END
+
+!DOC notify
+notify(signum) -> None
+
+If signum is None or 0, no notifications else the process will be nntified by signal signum when
+message arrive.
+!END
+
+!DOC receive
+receive(size = <msgsize>, timeout = None) -> (integer, bytes object)
+
+receive message from queue.
+
+Arguments:
+* size:    Integer
+           Maximum bytes expected.
+* timeout: Integer
+           Specifies a timeout in milliseconds
+
+Return value:
+  If a message have been received, returns a two values tuple as follow:
+  * an integer corresponding to the message priority.
+  * a bytes object correspondint to the received data.
+  if there is no message ans O_NONBLOCK is set or timeout is exceeded, None is returned.
+
+Exceptions:
+  SystemError. errno values are:
+               * errno.EBADF:    The descriptor specified in mqdes was invalid or not opened for writing.
+	       * errno.EINTR:    The call was interrupted by a signal handler.
+	       * errno.EMSGSIZE: The incomming message len is greater than the given size.
+!END
+
+!DOC send
+send(msg, size = len(msg), timeout = None) -> boolean
+
+send message to message queue
+
+Arguments:
+* msg:      bytes or bytearray
+            Message to send
+* priority: Integer
+            Message priority. Must be greater or equal to zero.
+* size:     Integer
+            Maximum number of byte to send. Default len(msg)
+* timeout:  Integer
+            Specifies a timeout in milliseconds
+
+Return value:
+  False: The message has not been sent (Timeout or os.O_NONBLOCK is set)
+  True:  The message has been sent to the queue.
+
+Exceptions:
+  SystemError. errno values are:
+               * errno.EBADF:    The descriptor specified in mqdes was invalid or not opened for writing.
+	       * errno.EINTR:    The call was interrupted by a signal handler.
+	       * errno.EMSGSIZE: The message len was greatee to the maximum message size.
+!END
+
+!DOC mq_unlink
+Function mq_unlink:
+  mq_unlink(name)
+
+Arguments:
+* name: str
+        Name of an existing message queue
+
+Remove the 'name' message queue.
+!END
+

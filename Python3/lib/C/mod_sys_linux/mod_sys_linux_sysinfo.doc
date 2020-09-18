@@ -1,0 +1,38 @@
+# 
+# Copyright (c) 2020
+#      Christian CAMIER <christian.c@promethee.services>
+# 
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+#
+
+!DOC class_sysinfo
+Class SysInfo -- System informations
+!END
+
+#Attributes (all are read only):
+#* uptime:	Seconds since boot
+#* load_1:	1 minute load average
+#* load_5:	5 minutes load average
+#* load_15:	15 minutes load average
+#* loads:        tuple (load_1, load_5, load_15)
+#* totalram:	Total usable main memory size
+#* freeram:	Available memory size
+#* sharedram:	Amount of shared memory
+#* bufferram:	Memory used by buffers
+#* totalswap:	Total swap space size
+#* freeswap:	Swap space still available
+#* procs:	Number od current processes
+#* totalhigh:	Total high memory size
+#* freehigh:	Available high memory size
+#* mem_unit:	Memory unit size in bytes
+

@@ -1,0 +1,27 @@
+1 - inotify(7)
+1 - {get|set|p}rlimit
+2 - {get|set}itimer
+
+---- OLDS ----
+6 kernel keys (add_key, keyctl, etc.)
+5 chroot
+2 copy_file_range, sendfile
+2 epoll
+1 eventfd
+3 fsync, fdatasync
+4 xattr
+2 getX[gu]id, getfroups, g/setpgid, g/setpgrp,
+3 getrusage
+5 inotify
+2 aio
+? mknod
+4 mount/umount
+3 nanosleep
+? perf_event_open
+5 quota
+3 Posix messages and semaphores
+3 SV semaphores & message queues
+6 swapon, swapoff
+3 timerfd
+2 times
+4 utimes

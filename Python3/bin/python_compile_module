@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
+
+import CCA.ModuleCompiler as MC
+
+definition_file = sys.argv.pop(1)
+MC.Compile(definition_file)
